@@ -116,6 +116,8 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+    position: relative;
 }
 
 .logo {
@@ -125,6 +127,8 @@ h3 {
     font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
 }
 
 .logo-icon {
@@ -145,6 +149,26 @@ h3 {
     display: flex;
     align-items: center;
     gap: 32px;
+}
+
+.menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: 9999px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .nav-links a:not(.btn) {
@@ -240,7 +264,7 @@ h3 {
 .hero .container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: clamp(32px, 6vw, 60px);
     align-items: center;
 }
 
@@ -283,6 +307,10 @@ h3 {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+}
+
+.hero-actions .btn {
+    min-width: 180px;
 }
 
 /* Code Window */
@@ -337,7 +365,7 @@ h3 {
 
 .window-body pre {
     font-family: var(--font-mono);
-    font-size: 0.9rem;
+    font-size: clamp(0.78rem, 2.4vw, 0.9rem);
     line-height: 1.5;
     margin: 0;
 }
@@ -391,7 +419,7 @@ h3 {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 32px;
+    padding: clamp(20px, 4vw, 32px);
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
@@ -440,7 +468,7 @@ h3 {
 }
 
 .arch-text h2 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 6vw, 2.5rem);
 }
 
 .arch-text p {
@@ -475,7 +503,7 @@ h3 {
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     border-radius: 24px;
-    padding: 48px;
+    padding: clamp(24px, 5vw, 48px);
     text-align: center;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
@@ -504,6 +532,8 @@ footer {
 .footer-links {
     display: flex;
     gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer-links a {
@@ -551,18 +581,91 @@ footer {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
+@media (max-width: 900px) {
+    .menu-toggle {
+        display: inline-flex;
     }
+
+    .nav-links {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        background: rgba(10, 10, 12, 0.94);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-links a:not(.btn) {
+        color: var(--text-primary);
+        font-size: 1rem;
+    }
+
+    .nav-links .btn {
+        width: 100%;
+    }
+
+    .nav-links.is-open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+}
+
+@media (min-width: 901px) {
+    .nav-links {
+        position: static;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+        background: transparent;
+    }
+}
+
+@media (max-width: 768px) {
 
     .hero {
         padding-top: calc(var(--nav-height) + 40px);
         padding-bottom: 40px;
     }
 
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 28px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
     .section {
         padding: 60px 0;
+    }
+
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
     }
 
     .window-body {
@@ -571,5 +674,13 @@ footer {
 
     .glass-panel {
         padding: 32px 24px;
+    }
+
+    .arch-list li {
+        align-items: flex-start;
+    }
+
+    .copyright {
+        text-align: center;
     }
 }

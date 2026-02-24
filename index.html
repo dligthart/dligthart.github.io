@@ -55,7 +55,7 @@
         }
 
         header {
-            padding: 40px 24px;
+            padding: clamp(28px, 6vw, 48px) 24px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
             background: rgba(10, 10, 12, 0.8);
@@ -71,12 +71,12 @@
 
         header p {
             color: var(--text-secondary);
-            font-size: 1.125rem;
+            font-size: clamp(1rem, 3vw, 1.125rem);
         }
 
         main {
             flex: 1;
-            padding: 40px 16px;
+            padding: clamp(28px, 6vw, 56px) 16px;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
@@ -91,7 +91,7 @@
 
         @media (min-width: 600px) {
             .projects-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 24px;
             }
         }
@@ -106,7 +106,7 @@
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 32px;
+            padding: clamp(20px, 4vw, 32px);
             text-decoration: none;
             color: inherit;
             display: flex;
@@ -161,7 +161,7 @@
 
         .project-card h2 {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
         }
 
         .project-card p {
@@ -211,6 +211,20 @@
             color: var(--text-secondary);
             font-size: 0.875rem;
             border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 420px) {
+            .card-header {
+                margin-bottom: 12px;
+            }
+
+            .project-card p {
+                margin-bottom: 18px;
+            }
+
+            .tags {
+                margin-bottom: 18px;
+            }
         }
     </style>
 </head>

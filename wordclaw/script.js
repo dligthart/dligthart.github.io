@@ -1,4 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const mobileBreakpoint = window.matchMedia('(max-width: 900px)');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    const closeNavMenu = () => {
+        if (!menuToggle || !navLinks) {
+            return;
+        }
+
+        navLinks.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('is-open');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!mobileBreakpoint.matches || !navLinks.classList.contains('is-open')) {
+                return;
+            }
+
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                closeNavMenu();
+            }
+        });
+
+        navLinks.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                closeNavMenu();
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (!mobileBreakpoint.matches) {
+                closeNavMenu();
+            }
+        });
+    }
+
     // Basic Intersection Observer for scroll animations
     const observerOptions = {
         root: null,
