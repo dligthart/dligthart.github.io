@@ -10,12 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navLinks.classList.remove('is-open');
         menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
     };
 
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
             const isOpen = navLinks.classList.toggle('is-open');
             menuToggle.setAttribute('aria-expanded', String(isOpen));
+            document.body.classList.toggle('nav-open', isOpen);
         });
 
         document.addEventListener('click', (event) => {
@@ -36,6 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('resize', () => {
             if (!mobileBreakpoint.matches) {
+                closeNavMenu();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
                 closeNavMenu();
             }
         });
